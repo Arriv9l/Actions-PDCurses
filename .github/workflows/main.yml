@@ -29,6 +29,7 @@ jobs:
       - name: Download PDCurses
         run: |
           curl -L -o D:/PDCurses.zip https://sourceforge.net/projects/pdcurses/files/pdcurses/${{ env.eatpdb_version }}/PDCurses-${{ env.eatpdb_version }}.zip/download
+          cd D:/
           unzip D:/PDCurses.zip
         shell: bash
 
