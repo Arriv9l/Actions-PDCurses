@@ -11,6 +11,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  pdcurses_version: 3.9
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -25,16 +28,14 @@ jobs:
 
       - name: Download PDCurses
         run: |
-          curl -L -o D:/PDCurses.zip https://sourceforge.net/projects/pdcurses/files/latest/download
-          mkdir D:/PDCurses
-          cd D:/PDCurses
-          unzip D:/PDCurses.zip
+          curl -L https://sourceforge.net/projects/pdcurses/files/pdcurses/${{ env.eatpdb_version }}/PDCurses-${{ env.eatpdb_version }}.zip/download
+          unzip D:\PDCurses-${{ env.eatpdb_version }}.zip
         shell: bash
 
       - name: Build PDCurses
         id: build
         run: |
-          cd D:/PDCurses/wincon
+          cd D:\PDCurses-${{ env.eatpdb_version }}\wincon
           make -f Makefile WIDE=Y UTF8=Y DLL=Y
           echo "::set-output name=status::success"
         shell: bash
@@ -43,5 +44,5 @@ jobs:
         uses: actions/upload-artifact@master
         if: steps.build.outputs.status == 'success'
         with:
-          name: PDCurses
-          path: D:\PDCurses
+          name: PDCurses-${{ env.eatpdb_version }}
+          path: D:\PDCurses-${{ env.eatpdb_version }}
