@@ -34,8 +34,6 @@ jobs:
       - name: Build PDCurses
         id: build
         run: |
-          mkdir D:/output
-          set PDCURSES_SRCDIR=D:\output
           make -f Makefile WIDE=Y UTF8=Y DLL=Y
           echo "::set-output name=status::success"
         shell: bash
@@ -45,4 +43,4 @@ jobs:
         if: steps.build.outputs.status == 'success'
         with:
           name: PDCurses
-          path: D:\output
+          path: D:\PDCurses
