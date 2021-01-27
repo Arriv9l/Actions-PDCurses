@@ -28,8 +28,8 @@ jobs:
 
       - name: Download PDCurses
         run: |
-          curl -L https://sourceforge.net/projects/pdcurses/files/pdcurses/${{ env.eatpdb_version }}/PDCurses-${{ env.eatpdb_version }}.zip/download
-          unzip D:\PDCurses-${{ env.eatpdb_version }}.zip
+          curl -L -o D:\PDCurses.zip https://sourceforge.net/projects/pdcurses/files/pdcurses/${{ env.eatpdb_version }}/PDCurses-${{ env.eatpdb_version }}.zip/download
+          unzip D:\PDCurses.zip
         shell: bash
 
       - name: Build PDCurses
@@ -46,3 +46,9 @@ jobs:
         with:
           name: PDCurses-${{ env.eatpdb_version }}
           path: D:\PDCurses-${{ env.eatpdb_version }}
+
+      - name: Delete workflow runs
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 3
