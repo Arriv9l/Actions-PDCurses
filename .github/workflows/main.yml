@@ -34,6 +34,7 @@ jobs:
       - name: Build PDCurses
         id: build
         run: |
+          cd wincon
           make -f Makefile WIDE=Y UTF8=Y DLL=Y
           echo "::set-output name=status::success"
         shell: bash
